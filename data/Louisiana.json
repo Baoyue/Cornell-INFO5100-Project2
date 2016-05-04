@@ -1,0 +1,45 @@
+{
+ "name": "Louisiana",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size": 543 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 742 },
+    {"name": "Home-Meats", "description": "meats", "size": 891 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 396 },
+    {"name": "Home-Other", "description": "other", "size": 1398 },
+    {"name": "Food from vending machine", "description": "vending", "size": 407 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1211 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 363 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 286 },
+    {"name": "Snack food", "description": "snack", "size": 175 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 434 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2118 },
+    {"name": "Medical service", "description": "medical service", "size": 726 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 557 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2594 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3255 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 297 },
+    {"name": "other", "description": "ohter", "size": 2569 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 10167 },
+    {"name": "furniture", "description": "furniture", "size": 1519 }
+   ]
+  }
+ ]
+}

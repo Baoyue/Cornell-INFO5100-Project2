@@ -1,0 +1,45 @@
+{
+ "name": "Massachusetts",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size": 596                          },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 849 },
+    {"name": "Home-Meats", "description": "meats", "size": 926 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 458 },
+    {"name": "Home-Other", "description": "other", "size": 1570 },
+    {"name": "Food from vending machine", "description": "vending", "size": 436 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1449 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 462 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 367 },
+    {"name": "Snack food", "description": "snack", "size": 207 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 499 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2422 },
+    {"name": "Medical service", "description": "medical service", "size": 934 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 823 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2864 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3979 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 398 },
+    {"name": "other", "description": "ohter", "size": 2990 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 12099 },
+    {"name": "furniture", "description": "furniture", "size": 1931 }
+   ]
+  }
+ ]
+}

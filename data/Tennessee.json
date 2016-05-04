@@ -1,0 +1,45 @@
+{
+ "name": "Tennessee",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size":  559 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 772 },
+    {"name": "Home-Meats", "description": "meats", "size": 885 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 421 },
+    {"name": "Home-Other", "description": "other", "size": 1449 },
+    {"name": "Food from vending machine", "description": "vending", "size": 410 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1246 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 393 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 308 },
+    {"name": "Snack food", "description": "snack", "size": 183 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 471 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2270 },
+    {"name": "Medical service", "description": "medical service", "size": 812 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 585 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2688 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3433 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 317 },
+    {"name": "other", "description": "ohter", "size": 2669 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 10502 },
+    {"name": "furniture", "description": "furniture", "size": 1609 }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "name": "Oregon",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size":  579 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 814 },
+    {"name": "Home-Meats", "description": "meats", "size": 886 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 447 },
+    {"name": "Home-Other", "description": "other", "size": 1512 },
+    {"name": "Food from vending machine", "description": "vending", "size": 418 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1329 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 436 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 343 },
+    {"name": "Snack food", "description": "snack", "size": 195 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 497 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2393 },
+    {"name": "Medical service", "description": "medical service", "size": 900 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 677 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2784 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3685 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 352 },
+    {"name": "other", "description": "ohter", "size": 2811 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 11194 },
+    {"name": "furniture", "description": "furniture", "size": 1751 }
+   ]
+  }
+ ]
+}

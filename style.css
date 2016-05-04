@@ -1,0 +1,396 @@
+body { 
+	font-family: "LinotypeUniversW01-Ligh_723625"; 
+	font-size: 17px; 
+	line-height: 22px; 
+	margin: 20px;
+}
+
+text { 
+	text-archor: middle; 
+	color: rgb(33,102,172); 
+	font-size: 15px;
+	font-family: "LinotypeUniversW01-Cn";
+
+}
+
+h1 {
+	width: 1100px;
+	text-align: center;
+	margin: 10px auto; 
+	font-size: 2.8em; 
+	color: #613156; 
+	line-height: 1.2em;
+}
+
+h2{ 
+	font-family: "LinotypeUniversW01-Medi_723673";
+	width: 400px;
+	line-height: 1.1em; 
+	text-align: left;
+	color: #613156;
+	font-size: 1.4em;
+	margin: 0;
+	padding: 5px 0;
+}	
+
+h3 { 
+	font-family: "LinotypeUniversW01-Medi_723673";
+	text-align: center;
+	margin: 25px auto 10px auto; 
+	font-size: 2.8em; 
+	color: #686868; 
+	line-height: 1.2em;
+}
+
+h4 { 
+	width: 1200px;
+	margin: 0 auto; 
+	padding: 20px 0 10px 0; 
+	font-size: 1.8em; 
+	font-family: "LinotypeUniversW01-Cn"; 
+	text-align: center;
+	color: #613156;
+}
+
+h5, h6{ 
+	margin: 0; 
+	padding-top: 3px; 
+	font-size: 1.1em;
+	color:#613156;  
+}
+
+h5 {
+	color: #686868;
+}
+
+p { 
+	font-size: 1.1em; 
+	margin: 0; 
+	padding: 0;
+	line-height: 1.4em; 
+	color:#613156;
+	font-weight: 900;
+}
+
+p strong {
+	color: #613156;
+	font-weight: bolder;
+}
+
+span {
+	color:#E76A8A;
+	font-family: "LinotypeUniversW01-Medi_723673";
+}
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
+#toTop {
+	position: fixed;
+	top: 90%;
+	left: 95%;
+	width: 55px;
+}
+
+#states {
+  fill: #aaa;
+}
+
+#state-borders {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+#stateDetail {
+	margin: 30px 0 10px 0;
+	width: 500px;
+	height: 55px;
+	float: right;
+}
+
+#main {
+	width: 1200px;
+	margin: 20px auto;
+}
+
+#leftMap {
+	width: 750px;
+	height: 645px;
+	float: left;
+	margin-bottom: 70px;
+}
+
+#rightDes {
+	width: 400px;
+	margin: 0 0 0 50px;
+	float: left;
+	padding-top: 45px;
+	height: 600px;
+	margin-bottom: 70px;
+
+}
+
+#details {
+	width: 1200px;
+}
+
+.reminder {
+	display: block;
+	margin-top: 10px;
+	font-size: 0.9em;
+	width: 100%;
+	text-align: center;
+}
+
+#oneStateLine {
+	width: 550px;
+	float: left;
+}
+#oneStateSunbrust {
+	width: 550px;
+
+	float: left;
+}
+
+#legend {
+	width: 330px;
+	position: relative;
+	left: 415px;
+	top:30px;
+}
+
+#timeSlider {
+	margin-top: 20px;
+}
+
+#sliderText {
+	margin:0;
+	height: 30px;
+}
+
+.section {
+	width: 1200px;
+}
+#viewDetails {
+	margin: 20px auto;
+	float: none;
+	display: block;
+
+}
+
+#lineChart {
+	width: 1200px;
+}
+
+#centerLegend {
+	width: 100%;
+}
+
+#lineCheckSvg {
+	margin: 40px auto 20px auto;
+	width: 600px;
+	display: block;
+}
+
+.clear{
+	clear: both;
+}
+
+strong {
+	color: #000;
+}
+
+.sliderTag { 
+	width: 91px;
+	margin: 5px 0 0 0;
+	float: left;
+	color: #E76A8A; 
+	margin-right: 5px;
+	font-weight: bold; 
+	font-family:"LinotypeUniversW01-Cn";
+}
+
+.lineTag { 
+	margin: 5px 0 0 0;
+	color: #2166ac; 
+	margin-right: 5px; 
+	display: inline;
+	font-size: 900;
+	font-family:"LinotypeUniversW01-Cn";
+}
+
+#oneStateName  {
+	width: 1200px;
+	text-align: center;
+	padding-bottom: 30px;
+	margin: 0;
+	color:#613156;
+}
+
+.extraSmall {
+	width: 500px;
+	font-size: 1.5em;
+}
+#compare {
+	width: 1200px;
+	margin: 30px 0;
+}
+
+#firstState  {
+	width: 550px;
+	float: left;
+	text-align: right;
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
+#secondState {
+	width: 550px;
+	float: left;
+	text-align: left;
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
+#vs {
+	width: 100px;
+	float: left;
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
+#linegraph1 {
+	float: left;
+	width: 550px;
+	margin-left: 40px;
+}
+
+#linegraph2 {
+	float: left;
+	width: 550px;
+}
+
+#centerLine {
+	float: left;
+}
+
+#barChart {
+	margin-bottom: 30px;
+}
+
+#sunburst {
+	float: left;
+	width: 550px;
+	height: 510px;
+}
+
+
+
+
+button{ 
+	border:1px solid #613156; 
+	border-radius: 4px;
+	padding: 10px; 
+	font-size: 18px; 
+	background-color: white; 
+	color: #613156; 
+	width: 130px;  
+	margin: 10px 40px 10px 0;
+	font-family: "LinotypeUniversW01-Medi_723673"; 
+}
+
+.extraLarge {
+	width: 305px;
+}
+
+button:hover { 
+	background-color: #613156; 
+	color: #fff; 
+}
+
+.current, .mode{
+	background-color: #613156;
+	color: #fff;
+}
+
+.tooltip{ background-color: rgba(255,247,188,0.8); height: 50px; width: 100px; padding: 10px; text-align: left;z-index: 9999; }
+
+.hidden {
+    display: none;
+}
+
+.axis path { fill: none; stroke: gray;}
+.axis line { stroke: gray; }
+
+text.label {
+	font-size: 12pt; fill: #979797;
+}
+.lines {
+  	fill: none;
+  	stroke: #3399CC;
+  	stroke-width: 2.5px;
+}
+
+.allLines{
+	fill:none;
+	stroke-width: 2.5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.tipcircle{
+	r: 15px;
+	fill: steelblue;
+	opacity: 0;
+}
+
+
+div.tipbox {
+    color: #222;
+    background-color: #fff;
+    padding: .5em;
+    text-shadow: #f5f5f5 0 1px 0;
+    border-radius: 1px;
+    opacity: 0.9;
+    position: absolute;
+}
+div.tipbox {
+    color: #222;
+    background-color: #fff;
+    padding: .5em;
+    text-shadow: #f5f5f5 0 1px 0;
+    border-radius: 1px;
+    opacity: 0.9;
+    position: absolute;
+}
+
+input[type="range"] {
+	-webkit- 
+    margin-top: 2px;
+    background-color: #eaedf7;
+    border-radius: 15px;
+    width: 700px;
+    -webkit-appearance: none;
+    height:10px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    cursor: default;
+    top: -5px;
+    height: 20px;
+    width: 30px;
+    background: none repeat scroll 0 0 #E76A8A;
+    border-radius: 5px;
+}

@@ -1,0 +1,45 @@
+{
+ "name": "Wyoming",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size":  587 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 823 },
+    {"name": "Home-Meats", "description": "meats", "size": 895 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 459 },
+    {"name": "Home-Other", "description": "other", "size": 1547 },
+    {"name": "Food from vending machine", "description": "vending", "size": 428 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1358 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 447 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 349 },
+    {"name": "Snack food", "description": "snack", "size": 199 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 509 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2443 },
+    {"name": "Medical service", "description": "medical service", "size": 940 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 684 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2852 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3863 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 371 },
+    {"name": "other", "description": "ohter", "size": 2912 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 11276 },
+    {"name": "furniture", "description": "furniture", "size": 1839 }
+   ]
+  }
+ ]
+}

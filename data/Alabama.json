@@ -1,0 +1,45 @@
+{
+ "name": "Alabama",
+ "children": [
+  {
+   "name": "Food expense ",
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size": 547.47 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 749.05 },
+    {"name": "Home-Meats", "description": "meats", "size": 886.92 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 403.71 },
+    {"name": "Home-Other", "description": "other", "size": 1410.65 },
+    {"name": "Food from vending machine", "description": "vending", "size": 404.68 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1210.34 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 370.7 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 290.93 },
+    {"name": "Snack food", "description": "snack", "size": 176.03 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 450.45},
+    {"name": "Health insurance", "description": "health insurance", "size": 2182.4},
+    {"name": "Medical service", "description": "medical service", "size": 753.99}
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 551.24},
+    {"name": "gas and oil", "description": "gas and oil", "size": 2621.91},
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3291.3},
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 299.15},
+    {"name": "other", "description": "ohter", "size": 2589.98}
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 10195.78},
+    {"name": "furniture", "description": "furniture", "size": 1533.49}
+   ]
+  }
+ ]
+}

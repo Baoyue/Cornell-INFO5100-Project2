@@ -1,0 +1,45 @@
+{
+ "name": "Montana",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size":  570 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 795 },
+    {"name": "Home-Meats", "description": "meats", "size": 870 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 445 },
+    {"name": "Home-Other", "description": "other", "size": 1495 },
+    {"name": "Food from vending machine", "description": "vending", "size": 408 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1274 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 423 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 330 },
+    {"name": "Snack food", "description": "snack", "size": 188 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 510 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2419 },
+    {"name": "Medical service", "description": "medical service", "size": 901 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 608 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2757 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3601 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 338 },
+    {"name": "other", "description": "ohter", "size": 2768 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 10699 },
+    {"name": "furniture", "description": "furniture", "size": 1705 }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CS3300 Project2</title>
+	<link type="text/css" rel="stylesheet" href="https://fast.fonts.net/cssapi/c1ece602-4b8f-4767-a71f-aa828be38869.css">	
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script src="//d3js.org/topojson.v1.min.js"></script>
+
+</head>
+<body>
+	<div id="main">
+		<button id="toTop">TOP</button>
+		<h1>Average Household Income across states 2008-2015</h1>
+		<div id="leftMap">
+			<div id="legend">
+				<svg id="legendSvg"></svg>
+			</div>
+			<svg id="map"></svg>
+			<div id="timeSlider">
+				<input id="slider" type="range" min="2008" max="2015" value="2008" step="1" />
+				<div id="sliderText">
+					<div class="sliderTag">2008</div>
+					<div class="sliderTag">2009</div>
+					<div class="sliderTag">2010</div>
+					<div class="sliderTag">2011</div>
+					<div class="sliderTag">2012</div>
+					<div class="sliderTag">2013</div>
+					<div class="sliderTag">2014</div>
+					<div class="sliderTag" style="width: 40px">2015</div>
+				</div>			
+			</div>
+		</div>
+		
+		<div id="rightDes">
+			<p><strong>Are we making more money as time going by? <br>
+				Where do we spend our money?<br>
+				How are we doing compared with other states?<br>
+				Let’s go to explore it ! <br></strong></p >
+			<p><span>Part 1: Overview</span> <br>
+				The map left shows average household income and expenditure across states in 2008-2015. Use buttons and slider to choose the aspect and year you are interested in.</p>
+
+			<p><span>Select one aspect from the buttons below:</span></p>
+			<div id="mapButton">
+				<button id="foodButton">Food</button>
+				<button id="healthButton">Health</button>
+				<button id="transportButton">Transportation</button>
+				<button id="housingButton">Housing</button>
+				<button id="incomeButton" class="current extraLarge">Income</button>
+			</div>
+
+			<p><span>Part 2: Choose a mode</span> <br>
+				View details in one state or compare two states. Choose one mode below and then select states on the map. 
+			</p >
+			<div id="oneOrTwo">
+				<button id="oneState" class="mode">One State Details</button>
+				<button id="twoState">Two States Comparison</button>
+			</div>
+			
+		</div>
+		<div class="clear"></div>
+
+		<div id="details">
+			<h3 id="oneStateName"></h3>
+			<div id="oneStateLine">
+				<h4 class="extraSmall">Trend of Income and Expenditure Through 2008-2015</h4>
+				<p class="reminder">Click legends to hide/show lines!</p>
+				<div id="centerLegend">
+					<svg id="lineCheckSvg"></svg>
+				</div>
+				<div id="line"></div>
+			</div>
+			<div id="centerLine"><svg></svg></div>
+
+			<div id="oneStateSunbrust">	
+				<h4 class="extraSmall">Detailed Expenditure in 2015</h4>
+				<p class="reminder">Click outer/center to zoom in/out!</p>
+				<div id="stateDetail"></div>
+				<div class="clear"></div>
+				<svg id="sunburst"></svg>
+			</div>
+		</div>
+
+		<div id="compare">
+			<h3 id="firstState"></h3>
+			<h3 id="vs"></h3>
+			<h3 id="secondState"></h3>
+			<div class="clear"></div>
+			<h4>Comparison of Average Household Income and Expenditure in 2015</h4>
+			
+			<svg id="barChart"></svg>
+			
+			<div id="lineChart">
+				<h4>Trend of Average Household Income and Expenditure Through 2008-2015</h4>
+				<p class="reminder">Click legends to hide/show lines!</p>
+				<div id="centerLegend">
+					<svg id="lineCheckSvg"></svg>
+				</div>
+				<div id="linegraph1"></div>
+				<div id="centerLine"><svg></svg></div>
+				<div id="linegraph2"></div>
+			</div>
+		</div>	
+
+	</div>
+
+	<script>
+
+	// Scroll animation
+	var scrollToElement = function(el, ms){
+	    var speed = (ms) ? ms : 600;
+	    $('body').animate({
+	        scrollTop: $(el).offset().top
+	    }, speed);
+	}
+
+	d3.select("#toTop").on("click", function() {
+	 	scrollToElement('#main', 600);
+	})
+
+	
+	// hide the compare information when first load.
+	$("#compare").hide();
+	$("#details").hide();
+
+	// Append the legend for the map
+
+	var colorSet = [ "#FFD54F", "#FFEE58", "#9CCC65", "#4DD0E1", "#7986CB"];
+	var legendSvg = d3.select("#legendSvg")
+	.attr("width", 320)
+	.attr("height",70);
+
+	var incomeArray=[50000,65000,80000,95000,110000];
+	var foodArray=[5500,6250,7000,7750,8500];
+	var healthArray=[2000,2600,3200,3800,4400];
+	var transportArray=[6000,7250,8500,9750, 11000];
+	var housingArray=[12000,14500,17000,19500,22000];
+
+	// Append the Map Legend 
+	legendSvg.append("rect")
+	.attr("x",20).attr("y",25).attr("width",59).attr("height",10)
+	.style("stroke","none").style("fill", colorSet[0]);
+	legendSvg.append("rect")
+	.attr("x",80).attr("y",25).attr("width",59).attr("height",10)
+	.style("stroke","none").style("fill", colorSet[1]);	
+	legendSvg.append("rect")
+	.attr("x",140).attr("y",25).attr("width",59).attr("height",10)
+	
+	.style("stroke","none").style("fill", colorSet[2]);	
+	legendSvg.append("rect")
+	.attr("x",200).attr("y",25).attr("width",59).attr("height",10)
+	.style("stroke","none").style("fill", colorSet[3]);	
+	legendSvg.append("rect")
+	.attr("x",260).attr("y",25).attr("width",59).attr("height",10)
+	.style("stroke","none").style("fill", colorSet[4]);	
+
+	// Append Text for Map Legend
+	function mapLegend(scaleArray) {
+		legendSvg.selectAll("text").remove();
+		legendSvg.append("text")
+		.text("$"+scaleArray[0]).attr("class","labelText").attr("x",28).attr("y",55).attr("font-size","30%").style("fill","gray");
+		legendSvg.append("text")
+		.text("$"+scaleArray[1]).attr("class","labelText").attr("x",90).attr("y",55).attr("font-size","30%").style("fill","gray");
+		legendSvg.append("text")
+		.text("$"+scaleArray[2]).attr("class","labelText").attr("x",150).attr("y",55).attr("font-size","30%").style("fill","gray");
+		legendSvg.append("text")
+		.text("$"+scaleArray[3]).attr("class","labelText").attr("x",210).attr("y",55).attr("font-size","30%").style("fill","gray");
+		legendSvg.append("text")
+		.text("$"+scaleArray[4]).attr("class","labelText").attr("x",265).attr("y",55).attr("font-size","30%").style("fill","gray");
+	}
+
+	// Default map legend text
+	mapLegend(incomeArray);
+	
+	// Scale of different factors
+	var incomeScale = d3.scale.linear()
+	.domain(incomeArray)
+	.range(colorSet);
+
+	var foodScale = d3.scale.linear()
+	.domain(foodArray)
+	.range(colorSet);
+
+	var healthScale = d3.scale.linear()
+	.domain(healthArray)
+	.range(colorSet);
+
+	var transportScale = d3.scale.linear()
+	.domain(transportArray)
+	.range(colorSet);
+
+	var housingScale = d3.scale.linear()
+	.domain(housingArray)
+	.range(colorSet);
+
+	// tipbox when hover a state
+	var tipBox =  d3.select("body")
+	.append("div")
+	.attr('class', "hidden tipbox")
+	.attr("id","tipbox");
+
+	// Add tip box for the map hover
+	function tipText(id, year, factor){
+		var tipDiv =  document.getElementById("tipbox");
+		tipDiv.innerHTML="";
+
+		d3.csv("money.csv", function (error, data){
+	    	if (error) {console.log(error);}
+	    	var tipText;
+	    	tipText = year + id;
+	    	var factorData;
+	    	var state;
+			data.forEach(function (d){
+				if(d["State_fips"] == id){
+					factorData = d[factor+year];
+					state = d["Name"];
+				}
+			})
+			
+			var Name = document.createElement("h5");
+			Name.innerHTML = state;
+			tipDiv.appendChild(Name);
+			var Line = document.createElement("hr");
+			tipDiv.appendChild(Line);
+			var yearTitle = document.createElement("h5");
+			yearTitle.innerHTML = "Year: <strong>"+year+"</strong>";
+			tipDiv.appendChild(yearTitle);
+			var dataTitle = document.createElement("h5");
+			dataTitle.innerHTML = "Average Household " + factor + ": "+"<strong> $" + Number(factorData).toFixed(0)+"</strong>";
+			tipDiv.appendChild(dataTitle);   
+		})
+	}
+
+	// Add tip box for the line graph
+	function lineTipText(year , amount, id){
+		d3.csv("money.csv", function (error, data){
+	    	if (error) {console.log(error);}
+	    	var state;
+			data.forEach(function (d){
+				if(d["State_fips"] == id){
+					state = d["Name"];
+				}
+			})
+
+		var lineTipDiv = document.getElementById("tipbox");
+		lineTipDiv.innerHTML="";
+		var Name = document.createElement("h5");
+		Name.innerHTML = state;
+		lineTipDiv.appendChild(Name);
+		var Line = document.createElement("hr");
+		lineTipDiv.appendChild(Line);
+		var Year = document.createElement("h5");
+		Year.innerHTML = "Year: <strong>"+year +"</strong>";
+		lineTipDiv.appendChild(Year);
+		var Amount = document.createElement("h5");
+		Amount.innerHTML = "Amount: $<strong>"+amount +"</strong>";
+		lineTipDiv.appendChild(Amount); 
+		})
+		
+	}
+
+	// Set up map
+	var width = 750,
+	    height = 470,
+	    centered;
+	var count = 0;
+	var oneCount = 0;
+	var compareColor = ["#e76a8a","#613156"];
+
+	var projection = d3.geo.albersUsa()
+	    .scale(1000)
+	    .translate([width / 2, height / 2]);
+
+	var path = d3.geo.path()
+	    .projection(projection);
+
+	var svg = d3.select("#map")
+	    .attr("width", width)
+	    .attr("height", height);
+
+	var g = svg.append("g");
+	var idArray = [];
+	var oneId;
+
+	// Map part
+	d3.json("us.json", function(error, us) {
+		if (error) throw error;
+		// Default year;
+		var year = 2008;
+		// Default factor;
+		var factor = "Income";
+		// Default factor scale;
+		var factorScale = incomeScale;
+
+		// Response to mode choice
+		function modeClickFun(d) {
+			var oneStateMode = document.getElementById("oneState").classList.contains("mode");
+			if (oneStateMode) {
+				oneStateClick(d);
+
+			} else {
+				twoStateClick(d);
+			}
+		}
+
+		// One state detail function
+		function oneStateClick(d) {
+			$("#details").hide();
+			$("#compare").hide();
+			// if click a state
+			if (d && centered !== d) {
+			   	centered = d;
+			   	oneId = d.id;
+			   	oneCount++; 
+			} else {
+			    centered = null;
+			    oneCount = 0;
+			}
+			// First clean the map and then color the first selected state
+			if (oneCount == 1) {
+
+				var year = document.getElementById("slider").value;
+				var paint;
+				var name;
+				oneCount = 0;
+				d3.csv("money.csv", function (error, data){
+					if (error) {console.log(error);}
+
+					d3.selectAll(".stateUnits")
+					.data(topojson.feature(us, us.objects.states).features)
+					.style("fill", function (p) {
+						data.forEach(function (d){
+							if(d["State_fips"] == p.id){
+								paint = factorScale(d[factor+year]);
+				    		} 
+				    		if (d["State_fips"] == p.id && p.id == oneId) {
+				    			name=d.Name;
+
+					    		document.getElementById("oneStateName").innerHTML=name;
+					    		paint = compareColor[0];
+				    		}   		
+				    	})
+				    	return paint;
+					});
+				});
+				document.getElementById("line").innerHTML="";
+			
+				$("#details").show();
+				drawline(oneId,"line");
+
+				d3.selectAll("#centerLine").select("line").remove();
+				
+				d3.selectAll("#centerLine")
+				.selectAll("svg")
+				.attr("height", 670)
+				.attr("width", 100)
+				.append("line")
+			    .attr("x1", 50)
+			    .attr("x2", 50)
+			    .attr("y1", 20)
+			    .attr("y2", 650)
+			    .attr("stroke-dasharray", 5, 3, 5, 3)
+			    .attr("stroke", "#613156")
+			    .attr("stroke-width", 2);
+
+
+				var name;
+				d3.csv("money.csv", function(error,data) {
+					data.forEach(function(d) {
+						if (d.State_fips == oneId) {
+							name = d.Name;
+							var filename = "data/" + name + ".json";
+							sunburst(filename, "#sunburst");
+						}
+					});
+				});
+
+				scrollToElement('#details', 600);
+
+			}
+		}
+
+		// Two states comparison function
+		function twoStateClick(d) {
+			$("#details").hide();
+			$("#compare").hide();
+			if (idArray.length == 2) {
+				idArray=[];
+			}
+			// if click a state
+			if (d && centered !== d) {
+			   	centered = d;
+			   	idArray.push(d.id);
+			   	count++; 
+			} else {
+			    centered = null;
+			    count = 0;
+			    idArray = [];
+			}
+
+			// First clean the map and then color the first selected state
+			if (count == 1) {
+
+				var year = document.getElementById("slider").value;
+				var paint;
+				d3.csv("money.csv", function (error, data){
+					if (error) {console.log(error);}
+
+					d3.selectAll(".stateUnits")
+					.data(topojson.feature(us, us.objects.states).features)
+					.style("fill", function (p) {
+						data.forEach(function (d){
+							if(d["State_fips"] == p.id){
+								paint = factorScale(d[factor+year]);
+				    		}    		
+				    	})
+				    	if(p.id == idArray[0]) {
+				    		paint = compareColor[0];
+				    	}
+				    	return paint;
+					});
+				});
+			}
+
+			// Color the second selected state
+			if (count == 2) {
+				g.selectAll("path").classed("second_active", centered && function(d) {return d === centered;});
+				g.select(".second_active").style("fill", compareColor[1]);
+			  	count = 0;
+
+			  	// Show comparison section
+			  	compare(idArray);
+			  	$("#compare").show();
+			  	scrollToElement('#compare', 600);			
+			}
+		}
+
+		// Listeners on states
+	    g.attr("id", "states")
+	    .selectAll("path")
+	    .data(topojson.feature(us, us.objects.states).features)
+	    .enter().append("path")
+	    .attr("d", path)
+	    .attr("class","stateUnits")
+	    .on("click", modeClickFun)
+	    .on("mouseover", function (d){
+	    	var mouse = d3.mouse(svg.node()).map(function (d) {
+	    		return parseInt(d);
+	    	});
+	    	tipBox.classed('hidden', false)
+	    	.attr('style', 'left:' + (mouse[0] ) +'px; top:' + (mouse[1] + 30) + 'px');
+	    	tipText(d.id, document.getElementById("slider").value, factor);
+	    })
+	    .on('mouseout', function() {
+            tipBox.classed('hidden', true);
+        });
+
+	  	g.append("path")
+	    .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+	    .attr("id", "state-borders")	    
+	    .attr("d", path);
+
+	    //Set default map color
+	    d3.csv("money.csv", function (error, data){
+	    	if (error) {console.log(error);}
+	   	 	d3.selectAll(".stateUnits")
+	    	.data(topojson.feature(us, us.objects.states).features)
+			.style("fill",function (state){
+				var paint;
+				data.forEach(function (d){
+					if(d["State_fips"] == state.id){
+						paint = incomeScale(d["Income2008"]);
+			    	}
+			    })
+			    return paint;
+			})
+		});
+	    	   
+	    // Color Change as slider and generate text
+	    d3.selectAll("input").on("change", function change() {
+			year = this.value;
+			var paint;
+
+			d3.csv("money.csv", function (error, data){
+				if (error) {console.log(error);}
+				d3.selectAll(".stateUnits")
+				.data(topojson.feature(us, us.objects.states).features)
+				.style("fill",function (p){
+					data.forEach(function (d){
+						if(d["State_fips"] == p.id){
+							paint = factorScale(d[factor+year]);
+			    		}
+			    	})
+			    	return paint;
+				})
+			})
+		});
+
+		// Change the mode when click buttons of modes
+		selectMode("oneState");
+		selectMode("twoState");
+
+		// Change the map when click buttons of factors
+	    selectFactor("incomeButton", "Income", incomeScale, incomeArray);
+	    selectFactor("foodButton","Food", foodScale, foodArray);
+	    selectFactor("healthButton", "Health", healthScale, healthArray);
+	    selectFactor("transportButton", "Transportation", transportScale, transportArray);
+	    selectFactor("housingButton", "Housing", housingScale, housingArray);
+
+	    function selectMode(selectedButton, selectedfactor, selectedScale, selectedArray) {
+			document.getElementById(selectedButton).onclick=function(){
+
+				d3.selectAll(".mode").classed("mode", false);
+				d3.select("#"+selectedButton).classed("mode", true);
+
+				// Initalize everything
+				oneCount = 0;
+				count = 0;
+			    idArray = [];
+			    $("#details").hide();
+				$("#compare").hide();
+
+			    d3.csv("money.csv", function (error, data){
+					if (error) {console.log(error);}
+
+					d3.selectAll(".stateUnits")
+					.data(topojson.feature(us, us.objects.states).features)
+					.style("fill", function (p) {
+						data.forEach(function (d){
+							if(d["State_fips"] == p.id){
+								paint = factorScale(d[factor+year]);
+				    		}    		
+				    	})
+				    	return paint;
+					});
+				});
+
+
+			};
+		}
+
+		function selectFactor(selectedButton, selectedfactor, selectedScale, selectedArray) {
+			document.getElementById(selectedButton).onclick=function(){
+				var paint;
+				factor = selectedfactor;
+				factorScale = selectedScale;
+				mapLegend(selectedArray);
+
+				d3.selectAll(".current").classed("current", false);
+				d3.select("#"+selectedButton).classed("current", true);
+				d3.csv("money.csv", function (error, data) {
+					if (error) {
+						console.log(error);
+					}
+					d3.selectAll(".stateUnits")
+					.data(topojson.feature(us, us.objects.states).features)
+					.style("fill", function(p) {
+						data.forEach(function (d) {
+							if(d["State_fips"] == p.id) {
+								paint = selectedScale(d[factor+year]);
+							}
+						})
+						return paint;
+					})
+				})
+			};
+		}
+
+	});
+
+	// Action after choosing two states
+	function compare(idArray) {
+		$("#lineChart").hide();
+		var name1;
+		var name2;
+		var id1 = idArray[0];
+		var id2 = idArray[1];
+		
+		var index = 0;
+		d3.csv("money.csv", function(error,data) {
+			
+			var income1;
+			var income2;
+			var food1;
+			var food2;
+			var health1;
+			var health2;
+			var transport1;
+			var transport2;
+			var housing1;
+			var housing2;
+			var incomeRank1;
+			var incomeRank2;
+			var foodRank1;
+			var foodRank2;
+			var healthRank1;
+			var healthRank2;
+			var transportRank1;
+			var transportRank2;
+			var housingRank1;
+			var housingRank2;
+			var incomeArray=[];
+			var foodArray=[];
+			var healthArray=[];
+			var transportArray=[];
+			var housingArray=[];
+
+			data.forEach(function(d) {
+				
+				if (d.State_fips == id1) {
+					name1 = d.Name;
+					income1 = parseInt(d.Income2015);	
+					food1 = parseInt(d.Food2015);
+					health1 = parseInt(d.Health2015);
+					transport1 = parseInt(d.Transportation2015);
+					housing1 = parseInt(d.Housing2015);
+					incomeRank1 = parseInt(d.IncomeRank);
+					foodRank1 = parseInt(d.FoodRank);
+					healthRank1 = parseInt(d.HealthRank);
+					transportRank1 = parseInt(d.TransportationRank);	
+					housingRank1 = parseInt(d.HousingRank);
+				}
+				if (d.State_fips == id2) {
+					name2 = d.Name;
+					income2 = parseInt(d.Income2015);
+					food2 = parseInt(d.Food2015);
+					health2 = parseInt(d.Health2015);
+					transport2 = parseInt(d.Transportation2015);
+					housing2 = parseInt(d.Housing2015);
+					incomeRank2 = parseInt(d.IncomeRank);
+					foodRank2 = parseInt(d.FoodRank);
+					healthRank2 = parseInt(d.HealthRank);
+					transportRank2 = parseInt(d.TransportationRank);	
+					housingRank2 = parseInt(d.HousingRank);	
+				}
+			});
+
+			
+			d3.select("#firstState").text(name1).style("color", compareColor[0]);
+			d3.select("#vs").text("VS");
+			d3.select("#secondState").text(name2).style("color", compareColor[1]);
+
+			buildArray(incomeArray, income1, income2, incomeRank1, incomeRank2);
+			buildArray(foodArray, food1, food2, foodRank1, foodRank2);
+			buildArray(healthArray, health1, health2, healthRank1, healthRank2);
+			buildArray(transportArray, transport1, transport2, transportRank1, transportRank2);
+			buildArray(housingArray, housing1, housing2, housingRank1, housingRank2);	
+
+			var barChart_width = 1200;
+			var barChart_height = 500;
+
+			var barChart = d3.select("#barChart")
+	    	.attr("width", barChart_width)
+	    	.attr("height", barChart_height);
+
+
+			// 50 to 50 line
+		    barChart.append("line")
+		    .attr("x1", 600)
+		    .attr("x2", 600)
+		    .attr("y1", 20)
+		    .attr("y2", 270)
+		    .attr("stroke-dasharray", 5, 3, 5, 3)
+		    .attr("stroke", "#613156")
+		    .attr("stroke-width", 2);
+
+		  	var barChart = d3.select("#barChart");
+	    	barChart.selectAll("text").remove();
+
+
+			drawBar(incomeArray, 0);
+			drawBar(foodArray, 1);
+			drawBar(healthArray, 2);
+			drawBar(transportArray, 3);
+			drawBar(housingArray, 4);
+
+
+
+			document.getElementById("linegraph1").innerHTML="";
+			document.getElementById("linegraph2").innerHTML="";
+			d3.selectAll("#centerLine").select("line").remove();
+			$("#lineChart").show();
+			
+			drawline(id1,"linegraph1");
+			
+			d3.selectAll("#centerLine")
+			.selectAll("svg")
+			.attr("height", 500)
+			.attr("width", 30)
+			.append("line")
+		    .attr("x1", 10)
+		    .attr("x2", 10)
+		    .attr("y1", 20)
+		    .attr("y2", 475)
+		    .attr("stroke-dasharray", 5, 3, 5, 3)
+		    .attr("stroke", "#613156")
+		    .attr("stroke-width", 2);
+
+			drawline(id2,"linegraph2");
+
+		});
+	}
+
+	function buildArray(newArray, num1, num2, rank1, rank2) {
+		var sum = num1+num2;
+		var ratio = num1/sum;
+		newArray.push(num1);
+		newArray.push(num2);
+		newArray.push(rank1);
+		newArray.push(rank2);
+		newArray.push(num1/sum);
+	}
+
+	function drawBar(ratioArray, index) {
+		var width = 1200;
+		var height = 300;
+		var x = 300;
+		var y = index * 50 + 30;
+		var rect_height = 22;
+		var rect_width = 600;
+		var res1 = ratioArray[0];
+		var res2 = ratioArray[1];
+		var rank1 = ratioArray[2];
+		var rank2 =  ratioArray[3];
+		var ratio = ratioArray[4];
+		var rank = "Rank: " + rank1 + " VS " + rank2;
+		var barChart = d3.select("#barChart")
+	    .attr("width", width)
+	    .attr("height", height);
+
+	    var title;
+
+	    switch (index) {
+	    	case 0: title="Income";
+	    			break;
+	    	case 1: title="Food";
+	    			break;
+	    	case 2: title="Health Care";
+	    			break;
+	    	case 3: title="Transportation";
+	    			break;
+	    	case 4: title="Housing";
+	    			break;
+	    }
+
+	    // bar title
+	    barChart.append("text")
+	    .text(title)
+	    .attr("x", x - 10)
+	    .attr("y", y + 16)
+	    .attr("text-anchor", "end");
+
+	    barChart.append("text")
+	    .text(rank)
+	    .attr("x", x + rect_width + 10)
+	    .attr("y", y + 16)
+	    .attr("text-anchor", "start");
+
+	    // left cover rect
+
+	    barChart.append("rect")
+	    .attr("class", "leftCover")
+	    .attr("width", ratio*rect_width)
+	    .attr("height", rect_height)
+	    .attr("x", x)
+	    .attr("y", y)
+	    .attr("fill", compareColor[0]);
+
+	    // right cover rect
+
+	    barChart.append("rect")
+	    .attr("class", "leftCover")
+	    .attr("width", (1-ratio)*rect_width)
+	    .attr("height", rect_height)
+	    .attr("x", x+ratio*rect_width)
+	    .attr("y", y)
+	    .attr("fill", compareColor[1]);
+
+	    // left data
+	   	barChart.append("text")
+	   	.text("$"+res1)
+	    .attr("x", x+ratio*rect_width-5)
+	    .attr("y", y+16)
+	    .attr("text-anchor", "end")
+	    .attr("fill", "#FFF")
+	    .attr("font-size", "13px");
+
+	    // right data
+	   	barChart.append("text")
+	   	.text("$"+res2)
+	    .attr("x", x+ratio*rect_width+5)
+	    .attr("y", y+16)
+	    .attr("text-anchor", "start")
+	    .attr("fill", "#FFF")
+	    .attr("font-size", "13px");
+
+	    // intersection line
+
+	    barChart.append("line")
+	    .attr("x1", x+rect_width*ratio)
+	    .attr("x2", x+rect_width*ratio)
+	    .attr("y1", y)
+	    .attr("y2", y+rect_height)
+	    .attr("stroke", "#fff")
+	    .attr("stroke-width", 1);
+
+	}
+
+	// function to draw the line graph
+	function drawline(id, div){
+
+		d3.select("#"+div).innerHTML = "";
+
+		d3.selectAll(".lineCheckBox").style("opacity", "1");
+
+		var height = 500;
+		var width = 550;
+		var padding = 50;
+		var rightPadding = 25;
+		var leftPadding = 5;
+		var linesvg = d3.select("#"+div).append("svg")
+		.attr("height", height).attr("width", width);
+
+
+		 // Add the clip path.
+	  	linesvg.append("clipPath")
+	    .attr("id", "clip")
+	    .append("rect")
+	    .attr("width", width)
+	    .attr("height", height);
+	
+	 	// append circles on data points
+	 	function appendCircles (targetState, lineId){
+	 		targetState.forEach(function (d){
+	 			// console.log(lineId);
+	 			switch (lineId){
+		 			case "incomeLine": 
+		 			linesvg.append("circle")
+		 			.attr("class","tipcircle incTip").attr("cx",  xScale(d.Year)).attr("cy", yScale(d.Inc));
+					break;
+					case "foodLine":
+				   	linesvg.append("circle")
+				    .attr("class","tipcircle foodTip").attr("cx", xScale(d.Year)).attr("cy",yScale(d.Food));
+				    break;
+				    case "houseLine":
+				   	linesvg.append("circle")
+				    .attr("class","tipcircle houseTip").attr("cx", xScale(d.Year)).attr("cy",yScale(d.House));
+				    break;
+				    case "healthLine":
+				    linesvg.append("circle")
+				    .attr("class","tipcircle healthTip").attr("cx", xScale(d.Year)).attr("cy",yScale(d.Health));
+				    break;
+				    case "transportLine":
+				    linesvg.append("circle")
+				   	.attr("class","tipcircle transportTip").attr("cx", xScale(d.Year)).attr("cy",yScale(d.Transportation));
+				   	break;
+			    }
+			});
+	 	}
+
+	 	// Add mouse action to the points, +tips
+		function appendLineTips(line,pair, notselected, id){
+	    	linesvg.selectAll(".tipcircle")
+	   		.on("mouseover", function (d){
+	   			 d3.selectAll("#"+$(line).attr("id")).style("stroke-width","5px");
+	   			d3.selectAll(notselected).style("opacity",0.2);
+			 	d3.select(this).style("fill","red");
+				var mouse = d3.mouse(svg.node()).map(function (m) {
+					return parseInt(m);
+				});
+				document.getElementById("tipbox").innerHTML="";
+				tipBox.classed('hidden', false)
+				.attr('style', 'left:' + (mouse[0]+50) +'px; top:' + (mouse[1]+80) + 'px');
+				var year = Math.floor(inverseX(d3.select(this).attr("cx")));
+				var amount = Math.floor(inverseY(d3.select(this).attr("cy")));
+				lineTipText(year,amount,id);
+			})
+			.on("mouseout", function (d){
+				d3.selectAll("#"+$(pair[0]).attr("id")).style("stroke-width","2.5px");
+				d3.selectAll(notselected).style("opacity",1);
+				d3.select(this).style("fill","black");
+				tipBox.classed('hidden', true)
+				d3.selectAll(".tipcircle").remove();
+			});
+	    }
+
+		var xScale = d3.scale.ordinal()
+		.domain([2008,2009,2010,2011, 2012,2013,2014,2015])
+		.rangePoints([padding + leftPadding, width - rightPadding]);
+
+		var yScale = d3.scale.linear()
+		.domain([0,20000,50000,120000])
+		.range([450,350,330,30]);
+
+		var inverseX = d3.scale.linear()
+		.domain([padding + leftPadding, width -rightPadding])
+		.range([2008,2015]);
+
+		var inverseY = d3.scale.linear()
+		.domain([450,350,330,30])
+		.range([0,20000,50000,120000]);
+
+		var xAxis = d3.svg.axis().scale(xScale).orient("buttom");
+		linesvg.append("g")
+		.attr("class", "axis")
+		.attr("transform","translate(0,"+(height-padding)+")")
+		.call(xAxis);
+
+		var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(10).tickFormat(
+			function (d) {
+				if (d>20000 && d < 50000) {
+					return "";
+				} else {
+					return d;
+				}
+			});
+		linesvg.append("g").attr("class","axis")
+		.attr("transform","translate(" + (padding+leftPadding)+ ",0)")
+		.call(yAxis);
+
+	    var lineColors = ["#00838F","#A569BD","#F39C12","#E76A8A","#5499C7"];
+
+		var targetState=[];
+
+		d3.csv("money.csv",  function(error, data) {
+			if (error) {console.log(error);}
+			data.forEach(function (d){
+				if(d["State_fips"] == id){
+					targetState.push({Year: 2008, Inc:Number(d["Income2008"]), Food:Number(d["Food2008"]), House: Number(d["Housing2008"]), Health: Number(d["Health2011"]), Transportation: Number(d["Transportation2008"]) });
+					targetState.push({Year: 2009, Inc:Number(d["Income2009"]), Food:Number(d["Food2009"]), House: Number(d["Housing2009"]), Health: Number(d["Health2011"]), Transportation: Number(d["Transportation2009"]) });
+					targetState.push({Year: 2010, Inc:Number(d["Income2010"]), Food:Number(d["Food2010"]), House: Number(d["Housing2010"]), Health: Number(d["Health2011"]), Transportation: Number(d["Transportation2010"]) });
+					targetState.push({Year: 2011, Inc:Number(d["Income2011"]), Food:Number(d["Food2011"]), House: Number(d["Housing2011"]), Health: Number(d["Health2011"]), Transportation: Number(d["Transportation2011"]) });
+					targetState.push({Year: 2012, Inc:Number(d["Income2012"]), Food:Number(d["Food2012"]), House: Number(d["Housing2012"]), Health: Number(d["Health2012"]), Transportation: Number(d["Transportation2012"]) });
+					targetState.push({Year: 2013, Inc:Number(d["Income2013"]), Food:Number(d["Food2013"]), House: Number(d["Housing2013"]), Health: Number(d["Health2013"]), Transportation: Number(d["Transportation2013"]) });
+					targetState.push({Year: 2014, Inc:Number(d["Income2014"]), Food:Number(d["Food2014"]), House: Number(d["Housing2014"]), Health: Number(d["Health2014"]), Transportation: Number(d["Transportation2014"]) });
+					targetState.push({Year: 2015, Inc:Number(d["Income2015"]), Food:Number(d["Food2015"]), House: Number(d["Housing2015"]), Health: Number(d["Health2015"]), Transportation: Number(d["Transportation2015"]) });
+				}
+			});
+
+			// Draw the income line
+			var incLine = d3.svg.line()
+		    .x(function (d) { return xScale(d.Year); })
+		    .y(function (d) { return yScale(d.Inc); });
+		    linesvg.append("path").datum(targetState)
+		    .attr("class", "lines").attr("id","incomeLine")
+		    .style("stroke-width","2.5").style("stroke",lineColors[0])
+		    .attr("d", incLine);
+		
+
+		    // Draw the food line
+			var foodLine = d3.svg.line()
+		    .x(function (d) { return xScale(d.Year); })
+		    .y(function (d) { return yScale(d.Food); });
+		    linesvg.append("path").datum(targetState).attr("class", "lines")
+		    .attr("id","foodLine").style("stroke",lineColors[2])
+		    .attr("d", foodLine);
+
+		    // Draw the housing line
+			var houseLine = d3.svg.line()
+		    .x(function (d) { return xScale(d.Year); })
+		    .y(function (d) { return yScale(d.House); });
+		    linesvg.append("path").datum(targetState)
+		    .attr("class", "lines")
+		    .attr("id","houseLine")
+		    .style("stroke",lineColors[1])
+		    .attr("d", houseLine);
+		    
+		    // Draw the media age  line
+			var healthLine = d3.svg.line()
+		    .x(function (d) { return xScale(d.Year); })
+		    .y(function (d) { return yScale(d.Health); });
+		    linesvg.append("path").datum(targetState)
+		    .attr("class", "lines")
+		    .attr("id","healthLine")
+		    .style("stroke",lineColors[3])
+		    .attr("d", healthLine);
+
+		   	// Draw the media age  line
+			var transportLine = d3.svg.line()
+		    .x(function (d) { return xScale(d.Year); })
+		    .y(function (d) { return yScale(d.Transportation); });
+
+		    linesvg.append("path").datum(targetState)
+		    .attr("class", "lines")
+		    .attr("id","transportLine")
+		    .style("stroke",lineColors[4])
+		    .attr("d", transportLine);
+
+		    /* Add 'curtain' rectangle to hide entire graph */
+		  	var curtain = linesvg.append('rect')
+		    .attr("x", -1* width).attr('y', -1 * (height-padding-1))
+		    .attr('height', height-padding).attr('width', width-padding)
+		    .attr('class', 'curtain').attr('transform', 'rotate(180)')
+		    .style('fill', "#FFF");
+
+		    // Add transition of curtain to create line animation
+    		d3.selectAll("rect.curtain").transition().duration(3000).attr("width",0);
+
+    		// Change the line status when hover and move away
+    		d3.selectAll(".lines").attr("class","allLines")
+    		.on("mouseover",function (d){
+    			d3.selectAll(".tipcircle").remove();
+    			var pair = d3.selectAll("#"+$(this).attr("id"));
+    			d3.selectAll("#"+$(pair[0]).attr("id")).style("stroke-width","5px");
+
+    			var notselected = $('.allLines').not(pair[0]).not(pair[1]);
+    			d3.selectAll(notselected).style("opacity",0.2);
+
+    			appendCircles(targetState, $(this).attr("id"));
+    			appendLineTips(this,pair,notselected,id);
+    		})
+    		.on("mouseout", function (d){
+    			var pair = d3.selectAll("#"+$(this).attr("id"));
+    			d3.selectAll("#"+$(pair[0]).attr("id")).style("stroke-width","2.5px");
+    			var notselected = $('.allLines').not(pair[0]).not(pair[1]);
+    			d3.selectAll(notselected).style("opacity",1);
+    		});
+ 		});
+		
+		// Append the line checkboxes
+		var lineCheckSvg = d3.selectAll("#lineCheckSvg")
+		.attr("height", 30).attr("width", width*1.5);
+
+		var lineData = [];
+		lineData.push({name: "incomeL", value: targetState} );
+		lineData.push({name: "houseL", value: targetState} );
+		lineData.push({name: "foodL", value: targetState} );
+		lineData.push({name: "healthL", value: targetState} );
+		lineData.push({name: "transportL", value: targetState} );
+
+		d3.selectAll(".lineCheckBox").attr("opacity",1);
+		
+		// console.log(lineData);
+		var lineCheck = lineCheckSvg.selectAll(".lineCheckBox").data(lineData);
+		var lineCheckBox = lineCheck.enter().append("g")
+		.attr("class", "lineCheckBox").attr("id", function (d){ return d.name;})
+		.on("click", function (d){
+			if( $(this).css("opacity") == 1){
+				var elemented = d3.selectAll("#"+this.id+"ine");
+				
+				elemented.transition()
+				.duration(500)
+				.style("opacity",0)
+				.style("display", "none");
+
+				d3.select(this)
+     			.transition()
+        		.duration(200)
+      			.style ("opacity", .2);
+			} else {
+				var elemented = d3.selectAll("#"+this.id+"ine");
+
+				elemented.style("display", "block")
+	        	.transition()
+    	    	.duration(500)
+        		.style("opacity",1);
+    	
+        		d3.select(this)
+      			.transition()
+        		.duration(200)
+      			.style ("opacity", 1);
+			}
+		});
+
+		lineCheckBox.append("circle").attr("cx", function (d,i){
+			return 20 + 100*i;
+		}).attr("cy", 10)
+		.attr("r",8)
+		.style("opacity",1)
+		.style("fill", function (d,i){ return lineColors[i]});
+
+		lineCheckBox.append("text")
+		.attr("x",function (d,i){return 30+100*i;})
+		.attr("y",15)
+		.attr("class","checkBoxText")
+		.text(function (d){
+			switch (d.name){
+				case "incomeL":
+				return "Income";break;
+				case "foodL":
+				return "Food";break;
+				case "houseL":
+				return "Housing";break;
+				case "healthL":
+				return "Health Care";break;
+				case "transportL":
+				return "Transportation";break;
+			}
+		});
+	};
+
+	// Draw sunbrust
+
+	function sunburst(filename, divName) {
+
+		d3.selectAll("#trail").remove();
+
+		var width = 500,
+	    height = 500,
+	    radius = (Math.min(width, height) / 2) - 40;
+
+		var formatNumber = d3.format(",d");
+
+		var x = d3.scale.linear()
+		    .range([0, 2 * Math.PI]);
+
+		var y = d3.scale.sqrt()
+		    .range([0, radius]);
+		//sunburst color functino
+		var sunburstColor = ["#A569BD","#F39C12","#5499C7","#E76A8A"];
+		var sunburstChildColor = ["#D2B4DE", "#FAD7A0", "#A9CCE3","#F8BBD0"];
+		var sunburstTextColor = ["#D6EAF8","#FDEBD0", "#FCE4EC", "#E8DAEF"];
+
+	    // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
+	    var b = { w: 170, h: 50, s: 3, t: 10 };
+	    var trailID;
+
+		d3.json(filename, function(error, data) {
+
+			var partition = d3.layout.partition()
+    						.value(function(d) { return d.size; });
+
+			var arc = d3.svg.arc()
+			    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+			    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+			    .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+			    .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+
+			var svg = d3.select(divName).append("svg")
+			    .attr("width", width)
+			    .attr("height", height)
+			  	.append("g")
+			    .attr("transform", "translate(" + (width + 50) / 2  + "," + (height / 2) + ")");
+
+			initializeBreadcrumbTrail();
+
+			var path = svg.selectAll("path")
+			  .data(partition.nodes(data))
+			  .enter().append("path")
+			  .attr("d", arc)
+			  .attr("stroke-width", "2px")
+			  .attr("stroke", "#FFF")
+			  .style("fill", function(d) { 
+
+			  	var nodeName;
+			  	var color;
+			  	if (d.children) {
+			  		nodeName = d.name;
+			  		color=sunburstColor;
+			  	} else {
+			  		nodeName = d.parent.name;
+			  		color=sunburstChildColor;
+			  	}
+
+			  	switch (nodeName) {
+          			case "Housing related expense":
+          				return color[0];
+          			case "Food expense ":
+          				return color[1];
+          			case "Transport related expense":
+          				return color[2];
+          			case "Health related expense":
+          				return color[3];
+          			default:
+          				return "#FFF";
+          		}
+			  })
+			  .on("click", click)
+			  .text(function(d) {
+			   return d.name + "\n" + formatNumber(d.value); })
+			  .on("mouseover", function(d) {
+			      var sequenceArray = getAncestors(d);	       
+			      updateBreadcrumbs(sequenceArray, (d.size > 0? "$" + d.size: ""));;
+			    })
+			  .on("mouseleave", mouseleave);
+
+		    var mouseleave =function(){
+		      d3.select("#trail")
+		        .style("visibility", "hidden");
+
+		       return tooltip.style("opacity", 0);
+		    }
+
+		    function getAncestors(node) {
+		      var path = [];
+		      var current = node;
+		      while (current.parent) {
+		        path.unshift(current);
+		        current = current.parent;
+		      }
+		      return path;
+		    }
+
+		    function click(d) {
+
+		  svg.transition()
+		      .duration(750)
+		      .tween("scale", function() {
+		        var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+		            yd = d3.interpolate(y.domain(), [d.y, 1]),
+		            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+		        return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
+		      })
+		      .selectAll("path")
+		      .attrTween("d", function(d) { return function() { return arc(d); }; });
+		  }
+
+		    function initializeBreadcrumbTrail() {
+				// Add the svg area.  #stateDetail
+				var trail = d3.selectAll("#stateDetail").append("svg:svg")
+				  .attr("width", width)
+				  .attr("height", 50)
+				  .attr("x", width/2)
+				  .attr("id", "trail");
+
+				// Add the label at the end, for the percentage.
+				trail.append("svg:text")
+				.attr("id", "endlabel")
+				.style("fill", "#000");
+		    }
+
+			// Generate a string that describes the points of a breadcrumb polygon.
+		    function breadcrumbPoints(d, i) {
+		      var points = [];
+		      points.push("0,0");
+		      points.push(b.w + ",0");
+		      points.push(b.w + b.t + "," + (b.h / 2));
+		      points.push(b.w + "," + b.h);
+		      points.push("0," + b.h);
+		      if (i > 0) { 
+			  // Leftmost breadcrumb; don't include 6th vertex.
+		        points.push(b.t + "," + (b.h / 2));
+		      }
+		      return points.join(" ");
+		    }
+
+
+			// Update the breadcrumb trail to show the current sequence and percentage.
+		    function updateBreadcrumbs(nodeArray, percentageString) {
+
+		      // Data join; key function combines name and depth (= position in sequence).
+		      var g = d3.select("#trail")
+		          .selectAll("g")
+		          .data(nodeArray, function(d) { 
+		            return d.name + d.depth; });
+
+		      // Add breadcrumb and label for entering nodes.
+		      var entering = g.enter().append("svg:g");
+
+		      entering.append("svg:polygon")
+		          .attr("points", breadcrumbPoints)
+		          .style("fill", function(d) {
+
+          		var nodeName;
+			  	var color;
+			  	if (d.children) {
+			  		nodeName = d.name;
+			  		color=sunburstColor;
+			  	} else {
+			  		nodeName = d.parent.name;
+			  		color=sunburstChildColor;
+			  	}
+
+			  	switch (nodeName) {
+          			case "Housing related expense":
+          				return color[0];
+          			case "Food expense ":
+          				return color[1];
+          			case "Transport related expense":
+          				return color[2];
+          			case "Health related expense":
+          				return color[3];
+          			default:
+          				return "#FFF";
+          		}
+		           
+		      });
+
+		      entering.append("svg:text")
+		          .attr("x", (b.w + b.t) / 2)
+		          .attr("y", b.h / 2)
+		          .attr("dy", "0.35em")
+		          .attr("text-anchor", "middle")
+		          .attr("font-size", "7px")
+		          .text(function(d) { return d.name; });
+
+				// Set position for entering and updating nodes.
+				g.attr("transform", function(d, i) {
+				return "translate(" + i * (b.w + b.s) + ", 0)";
+				});
+
+				// Remove exiting nodes.
+				g.exit().remove();
+
+				// Now move and update the percentage at the end.
+				d3.select("#trail").select("#endlabel")
+				  .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
+				  .attr("y", b.h / 2)
+				  .attr("dy", "0.35em")
+				  .attr("text-anchor", "middle")
+				  .text(percentageString);
+
+				// Make the breadcrumb trail visible, if it's hidden.
+				d3.select("#trail")
+				  .style("visibility", "");
+		    }
+
+		});
+
+		d3.select(self.frameElement).style("height", height + "px");
+	}
+	</script>
+</body>
+</html>
+
+

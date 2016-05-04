@@ -1,0 +1,45 @@
+{
+ "name": "Arizona",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size": 577  },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 808 },
+    {"name": "Home-Meats", "description": "meats", "size": 889 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 444  },
+    {"name": "Home-Other", "description": "other", "size": 1507  },
+    {"name": "Food from vending machine", "description": "vending", "size": 419  },
+    {"name": "Food from takeout", "description": "takeout", "size": 1321 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 429 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 337 },
+    {"name": "Snack food", "description": "snack", "size": 194 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 494},
+    {"name": "Health insurance", "description": "health insurance", "size": 2380},
+    {"name": "Medical service", "description": "medical service", "size": 888}
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 667 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2776 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3671 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 351 },
+    {"name": "other", "description": "ohter", "size": 2804}
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 11123},
+    {"name": "furniture", "description": "furniture", "size": 1742 }
+   ]
+  }
+ ]
+}

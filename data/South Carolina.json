@@ -1,0 +1,45 @@
+{
+ "name": "South Carolina",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size":  549 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 751 },
+    {"name": "Home-Meats", "description": "meats", "size": 891 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 403 },
+    {"name": "Home-Other", "description": "other", "size": 1414 },
+    {"name": "Food from vending machine", "description": "vending", "size": 406 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1216 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 371 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 291 },
+    {"name": "Snack food", "description": "snack", "size": 177 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 449 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2180 },
+    {"name": "Medical service", "description": "medical service", "size": 751 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 553 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2632 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3308 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 301 },
+    {"name": "other", "description": "ohter", "size": 2602 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 10257 },
+    {"name": "furniture", "description": "furniture", "size": 1538 }
+   ]
+  }
+ ]
+}

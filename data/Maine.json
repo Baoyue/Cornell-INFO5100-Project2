@@ -1,0 +1,45 @@
+{
+ "name": "Maine",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size": 575 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 803 },
+    {"name": "Home-Meats", "description": "meats", "size": 878 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 448 },
+    {"name": "Home-Other", "description": "other", "size": 1509 },
+    {"name": "Food from vending machine", "description": "vending", "size": 410 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1296 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 430 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 335 },
+    {"name": "Snack food", "description": "snack", "size": 190 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 518 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2454 },
+    {"name": "Medical service", "description": "medical service", "size": 917 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 631 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2786 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3676 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 348 },
+    {"name": "other", "description": "ohter", "size": 2817 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 10898 },
+    {"name": "furniture", "description": "furniture", "size": 1745 }
+   ]
+  }
+ ]
+}

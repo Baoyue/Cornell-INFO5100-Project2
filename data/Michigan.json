@@ -1,0 +1,45 @@
+{
+ "name": "Michigan",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size":  568 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 789 },
+    {"name": "Home-Meats", "description": "meats", "size": 893 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 429 },
+    {"name": "Home-Other", "description": "other", "size": 1477 },
+    {"name": "Food from vending machine", "description": "vending", "size": 413 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1286 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 410 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 322 },
+    {"name": "Snack food", "description": "snack", "size": 187 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 485 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2334 },
+    {"name": "Medical service", "description": "medical service", "size": 847 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 630 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2733 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3560 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 334 },
+    {"name": "other", "description": "ohter", "size": 2749 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 10804 },
+    {"name": "furniture", "description": "furniture", "size": 1680 }
+   ]
+  }
+ ]
+}

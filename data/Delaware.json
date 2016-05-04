@@ -1,0 +1,45 @@
+{
+ "name": "Delaware",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size": 575 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 802 },
+    {"name": "Home-Meats", "description": "meats", "size": 923 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 428 },
+    {"name": "Home-Other", "description": "other", "size": 1500 },
+    {"name": "Food from vending machine", "description": "vending", "size": 424 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1344 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 414 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 327 },
+    {"name": "Snack food", "description": "snack", "size": 192 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 474 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2313 },
+    {"name": "Medical service", "description": "medical service", "size": 834 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 687 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2774 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 3685 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 350 },
+    {"name": "other", "description": "ohter", "size": 2831 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 11263 },
+    {"name": "furniture", "description": "furniture", "size": 1743 }
+   ]
+  }
+ ]
+}

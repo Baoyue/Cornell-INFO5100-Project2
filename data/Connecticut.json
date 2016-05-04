@@ -1,0 +1,45 @@
+{
+ "name": "Connecticut",
+ "children": [
+  {
+   "name": "Food expense ", 
+   "children": [
+    {"name": "Home-Cereals", "description": "cereals", "size": 600 },
+    {"name": "Home-Fruit and vegetable", "description": "cereals", "size": 851 },
+    {"name": "Home-Meats", "description": "meats", "size": 937 },
+    {"name": "Home-Diary Product", "description": "diary", "size": 459 },
+    {"name": "Home-Other", "description": "other", "size": 1581 },
+    {"name": "Food from vending machine", "description": "vending", "size": 439 },
+    {"name": "Food from takeout", "description": "takeout", "size": 1456 },
+    {"name": "Food from restaurant", "description": "restaurant", "size": 461 },
+    {"name": "Food from cafeteria", "description": "cafeteria", "size": 365 },
+    {"name": "Snack food", "description": "snack", "size": 206 }
+   ]
+  },
+  {
+   "name": "Health related expense",
+   "children": [
+    {"name": "Drug", "description": "drug", "size": 502 },
+    {"name": "Health insurance", "description": "health insurance", "size": 2441 },
+    {"name": "Medical service", "description": "medical service", "size": 937 }
+   ]
+  },
+  {
+   "name": "Transport related expense",
+   "children": [
+    {"name": "public transport", "description": "public transport", "size": 823 },
+    {"name": "gas and oil", "description": "gas and oil", "size": 2888 },
+    {"name": "vehicle purchase", "description": "vehicle purchase", "size": 4037 },
+    {"name": "vehicle rental", "description": "vehicle rental", "size": 404 },
+    {"name": "other", "description": "ohter", "size": 3028 }
+   ]
+  },
+  {
+   "name": "Housing related expense",
+   "children": [
+    {"name": "house", "description": "house", "size": 12143 },
+    {"name": "furniture", "description": "furniture", "size": 1958 }
+   ]
+  }
+ ]
+}
