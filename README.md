@@ -1,5 +1,7 @@
 # Cornell INFO5100 Data Visualization Project2: Average Household Income in US from 2008-2015
 
+## Please click [INFO5100 Project2](https://baoyue.github.io/INFO5100Project2/index.html) to view this visualization
+
 ## Overview
 
 Nowadays, it seems that people are making more money than past. Are we making more money
